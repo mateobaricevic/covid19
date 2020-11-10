@@ -1,1 +1,1 @@
-# covid19
+# COVID19 Hrvatska
