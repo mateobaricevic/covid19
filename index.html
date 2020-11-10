@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="favicon.png"/>
+        <title>COVID-19 Hrvatska</title>
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
+        <script src="js/javascript.js"></script>
+    </head>
+    <body style="padding: 0; margin: 0; min-width: 755px;">
+        <div><p style="margin: 0; padding: 15px; width: 100%; background: slategray; font-family: Roboto; font-size: 25px; color: white; text-align: center; box-shadow: 0px 0px 15px #777;"><img src="favicon.png" style="height: 20px;"> COVID19 Hrvatska</p></div>
+        <div style="height: 20px;"></div>
+        <div><p id="danasDatum" style="margin: auto; padding: 10px 0px; width: 80%; background: #515C65; font-family: Roboto; font-size: 20px; font-weight: bold; color: white; text-align: center; box-shadow: 0px 0px 15px #777;">Loading...</p></div>
+        <div style="height: 20px;"></div>
+        <div style="text-align: center;">
+        <div style="width: 80%; display: inline-flex; flex-wrap: wrap; gap: 20px;">
+            <div id="brojeviDanasHrvatska" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; color: white; text-align: center;">
+                <p style="margin: 0; padding: 4px; font-size: 20px; font-weight: bold;">Hrvatska</p>
+                <p style="margin: 0; padding: 4px; color: #FFAB40; font-weight: bold;">Potvrđeni: <span id="danasPotvrdeniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniHrvatska" style="color: white; font-weight: bold;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #69F0AE; font-weight: bold;">Izliječeni: <span id="danasIzlijeceniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniHrvatska" style="color: white; font-weight: bold;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #FF5252; font-weight: bold;">Preminuli: <span id="danasPreminuliHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliHrvatska" style="color: white; font-weight: bold;"></span></p>
+            </div>
+            <div id="brojeviDanasSvijet" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; color: white; text-align: center;">
+                <p style="margin: 0; padding: 4px; font-size: 20px; font-weight: bold;">Svijet</p>
+                <p style="margin: 0; padding: 4px; color: #FFAB40; font-weight: bold;">Potvrđeni: <span id="danasPotvrdeniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniSvijet" style="color: white; font-weight: bold;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #69F0AE; font-weight: bold;">Izliječeni: <span id="danasIzlijeceniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniSvijet" style="color: white; font-weight: bold;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #FF5252; font-weight: bold;">Preminuli: <span id="danasPreminuliSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliSvijet" style="color: white; font-weight: bold;"></span></p>
+            </div>
+        </div></div>
+        <div style="height: 20px;"></div>
+        <div style="height: 450px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
+            <div id="chartContainerHrvatska" style="height: 90%; width: 95%; margin: auto;"></div>
+        </div>
+        <div style="height: 20px;"></div>
+        <div style="height: 450px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
+            <div id="chartContainerZupanijePotvrdeni" style="height: 90%; width: 95%; margin: auto;"></div>
+        </div>
+        <div style="height: 20px;"></div>
+        <div style="height: 450px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
+            <div id="chartContainerZupanijeIzlijeceni" style="height: 90%; width: 95%; margin: auto;"></div>
+        </div>
+        <div style="height: 20px;"></div>
+        <div style="height: 450px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
+            <div id="chartContainerZupanijePreminuli" style="height: 90%; width: 95%; margin: auto;"></div>
+        </div>
+        <div style="height: 20px;"></div>
+    </body>
+</html>
