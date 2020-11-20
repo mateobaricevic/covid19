@@ -10,23 +10,29 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     </head>
     <body style="padding: 0; margin: 0; min-width: 755px;">
-        <div><p style="margin: 0; padding: 15px; width: 100%; background: slategray; font-family: Roboto; font-size: 25px; color: white; text-align: center; box-shadow: 0px 0px 15px #777;"><img src="favicon.png" style="height: 20px;"> COVID-19 Hrvatska</p></div>
+        <div><p style="margin: 0; padding: 15px; width: 100%; background: slategray; font-family: Roboto; font-size: 26px; color: white; text-align: center; box-shadow: 0px 0px 15px #777;"><img src="favicon.png" alt="COVID-19" style="height: 20px;"> COVID-19 Hrvatska</p></div>
         <div style="height: 20px;"></div>
-        <div><p id="danasDatum" style="margin: auto; padding: 10px 0px; width: 80%; background: #515C65; font-family: Roboto; font-size: 20px; font-weight: bold; color: white; text-align: center; box-shadow: 0px 0px 15px #777;">Loading...</p></div>
+        <div><p id="danasDatum" style="margin: auto; padding: 10px 0px; width: 80%; background: #515C65; font-family: Roboto; font-size: 20px; color: white; text-align: center; box-shadow: 0px 0px 15px #777;">Loading...</p></div>
         <div style="height: 20px;"></div>
         <div style="text-align: center;">
         <div style="width: 80%; display: inline-flex; flex-wrap: wrap; gap: 20px;">
-            <div id="brojeviDanasHrvatska" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; color: white; text-align: center;">
-                <p style="margin: 0; padding: 4px; font-size: 20px; font-weight: bold;">Hrvatska</p>
-                <p style="margin: 0; padding: 4px; color: #FFAB40; font-weight: bold;">Potvrđeni: <span id="danasPotvrdeniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniHrvatska" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #69F0AE; font-weight: bold;">Izliječeni: <span id="danasIzlijeceniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniHrvatska" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FF5252; font-weight: bold;">Preminuli: <span id="danasPreminuliHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliHrvatska" style="color: white; font-weight: bold;"></span></p>
+            <div id="brojeviDanasHrvatska" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; font-size: 16px; color: white; text-align: center;">
+                <p style="margin: 0; padding: 8px; font-size: 20px;">Hrvatska</p>
+                <p style="margin: 0; padding: 4px; color: #FFAB40;">Potvrđeni: <span id="danasPotvrdeniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniHrvatska" style="color: white;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #69F0AE;">Izliječeni: <span id="danasIzlijeceniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniHrvatska" style="color: white;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #FF5252;">Preminuli: <span id="danasPreminuliHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliHrvatska" style="color: white;"></span></p>
             </div>
-            <div id="brojeviDanasSvijet" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; color: white; text-align: center;">
-                <p style="margin: 0; padding: 4px; font-size: 20px; font-weight: bold;">Svijet</p>
-                <p style="margin: 0; padding: 4px; color: #FFAB40; font-weight: bold;">Potvrđeni: <span id="danasPotvrdeniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniSvijet" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #69F0AE; font-weight: bold;">Izliječeni: <span id="danasIzlijeceniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniSvijet" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FF5252; font-weight: bold;">Preminuli: <span id="danasPreminuliSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliSvijet" style="color: white; font-weight: bold;"></span></p>
+            <div id="brojeviDanasPGZ" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; font-size: 16px; color: white; text-align: center;">
+                <p style="margin: 0; padding: 8px; font-size: 20px;">Primorsko-goranska</p>
+                <p style="margin: 0; padding: 4px; color: #FFAB40;">Potvrđeni: <span id="danasPotvrdeniPGZ" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniPGZ" style="color: white;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #69F0AE;">Aktivni: <span id="danasAktivniPGZ" style="color: white; font-weight: bold;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #FF5252;">Preminuli: <span id="danasPreminuliPGZ" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliPGZ" style="color: white;"></span></p>
+            </div>
+            <div id="brojeviDanasSvijet" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; font-size: 16px; color: white; text-align: center;">
+                <p style="margin: 0; padding: 8px; font-size: 20px;">Svijet</p>
+                <p style="margin: 0; padding: 4px; color: #FFAB40;">Potvrđeni: <span id="danasPotvrdeniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniSvijet" style="color: white;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #69F0AE;">Izliječeni: <span id="danasIzlijeceniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniSvijet" style="color: white;"></span></p>
+                <p style="margin: 0; padding: 4px; color: #FF5252;">Preminuli: <span id="danasPreminuliSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliSvijet" style="color: white;"></span></p>
             </div>
         </div></div>
         <div style="height: 20px;"></div>
@@ -39,7 +45,7 @@
         </div>
         <div style="height: 20px;"></div>
         <div style="height: 450px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
-            <div id="chartContainerZupanijeIzlijeceni" style="height: 90%; width: 95%; margin: auto;"></div>
+            <div id="chartContainerZupanijeAktivni" style="height: 90%; width: 95%; margin: auto;"></div>
         </div>
         <div style="height: 20px;"></div>
         <div style="height: 450px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
