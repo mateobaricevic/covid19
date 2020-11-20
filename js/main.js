@@ -139,28 +139,28 @@ window.onload = function() {
     var dataPotvrdeniZ = []; // Zadarska
     var dataPotvrdeniZa = []; // Zagrebačka
 
-    // Izliječeni po županijama
-    var dataIzlijeceniBb = [];
-    var dataIzlijeceniBp = [];
-    var dataIzlijeceniDn = [];
-    var dataIzlijeceniGZ = [];
-    var dataIzlijeceniI = [];
-    var dataIzlijeceniK = [];
-    var dataIzlijeceniKk = [];
-    var dataIzlijeceniKz = [];
-    var dataIzlijeceniLs = [];
-    var dataIzlijeceniM = [];
-    var dataIzlijeceniOb = [];
-    var dataIzlijeceniPs = [];
-    var dataIzlijeceniPg = [];
-    var dataIzlijeceniSk = [];
-    var dataIzlijeceniSm = [];
-    var dataIzlijeceniSd = [];
-    var dataIzlijeceniV = [];
-    var dataIzlijeceniVp = [];
-    var dataIzlijeceniVs = [];
-    var dataIzlijeceniZ = [];
-    var dataIzlijeceniZa = [];
+    // Aktivni po županijama
+    var dataAktivniBb = [];
+    var dataAktivniBp = [];
+    var dataAktivniDn = [];
+    var dataAktivniGZ = [];
+    var dataAktivniI = [];
+    var dataAktivniK = [];
+    var dataAktivniKk = [];
+    var dataAktivniKz = [];
+    var dataAktivniLs = [];
+    var dataAktivniM = [];
+    var dataAktivniOb = [];
+    var dataAktivniPs = [];
+    var dataAktivniPg = [];
+    var dataAktivniSk = [];
+    var dataAktivniSm = [];
+    var dataAktivniSd = [];
+    var dataAktivniV = [];
+    var dataAktivniVp = [];
+    var dataAktivniVs = [];
+    var dataAktivniZ = [];
+    var dataAktivniZa = [];
 
     // Preminuli po županijama
     var dataPreminuliBb = [];
@@ -191,7 +191,7 @@ window.onload = function() {
         } else {
             e.dataSeries.visible = true;
         }
-        chartHrvatska.render();
+        e.chart.render();
     }
 
     function toggleDataSeriesInverted(e) {
@@ -218,9 +218,7 @@ window.onload = function() {
                 }
             });
         }
-        chartZupanijePotvrdeni.render();
-        chartZupanijePreminuli.render();
-        chartZupanijeIzlijeceni.render();
+        e.chart.render();
     }
 
     function toolTipFormat(e) {
@@ -272,307 +270,126 @@ window.onload = function() {
 
     function addDataZupanije(data) {
         for (var z = 0; z < data[0].PodaciDetaljno.length; z++) {
-            var potvrdeni = [];
             for (var d = 0; d < data.length-1; d++)
             {
+                var datumDanas = new Date(data[d].Datum.substring(0, 10));
                 var potvrdeniDanas = data[d].PodaciDetaljno[z].broj_zarazenih - data[d+1].PodaciDetaljno[z].broj_zarazenih;
-                potvrdeni.push(potvrdeniDanas);
+                if (potvrdeniDanas < 0)
+                {
+                    potvrdeniDanas = 0;
+                }
+                var aktivniDanas = data[d].PodaciDetaljno[z].broj_aktivni;
                 var preminuliDanas = data[d].PodaciDetaljno[z].broj_umrlih - data[d+1].PodaciDetaljno[z].broj_umrlih;
+                if (preminuliDanas < 0)
+                {
+                    preminuliDanas = 0;
+                }
                 switch (z)
                 {
                     case 0:
-                        dataPotvrdeniBb.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliBb.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniBb.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniBb.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliBb.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniBb.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 1:
-                        dataPotvrdeniBp.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliBp.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniBp.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniBp.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliBp.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniBp.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 2:
-                        dataPotvrdeniDn.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliDn.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniDn.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniDn.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliDn.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniDn.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 3:
-                        dataPotvrdeniGZ.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliGZ.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniGZ.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniGZ.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliGZ.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniGZ.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 4:
-                        dataPotvrdeniI.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliI.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniI.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniI.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliI.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniI.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 5:
-                        dataPotvrdeniK.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliK.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniK.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniK.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliK.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniK.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 6:
-                        dataPotvrdeniKk.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliKk.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniKk.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniKk.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliKk.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniKk.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 7:
-                        dataPotvrdeniKz.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliKz.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniKz.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniKz.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliKz.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniKz.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 8:
-                        dataPotvrdeniLs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliLs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniLs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniLs.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliLs.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniLs.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 9:
-                        dataPotvrdeniM.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliM.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniM.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniM.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliM.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniM.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 10:
-                        dataPotvrdeniOb.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliOb.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniOb.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniOb.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliOb.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniOb.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 11:
-                        dataPotvrdeniPs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliPs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniPs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniPs.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliPs.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniPs.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 12:
-                        dataPotvrdeniPg.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliPg.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniPg.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniPg.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliPg.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniPg.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 13:
-                        dataPotvrdeniSk.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliSk.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniSk.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniSk.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliSk.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniSk.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 14:
-                        dataPotvrdeniSm.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliSm.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniSm.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniSm.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliSm.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniSm.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 15:
-                        dataPotvrdeniSd.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliSd.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniSd.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniSd.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliSd.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniSd.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 16:
-                        dataPotvrdeniV.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliV.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniV.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniV.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliV.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniV.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 17:
-                        dataPotvrdeniVp.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliVp.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniVp.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniVp.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliVp.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniVp.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 18:
-                        dataPotvrdeniVs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliVs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniVs.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniVs.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliVs.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniVs.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 19:
-                        dataPotvrdeniZ.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliZ.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniZ.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniZ.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliZ.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniZ.push({x: datumDanas, y: aktivniDanas});
                         break;
                     case 20:
-                        dataPotvrdeniZa.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: potvrdeniDanas
-                        });
-                        dataPreminuliZa.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: preminuliDanas
-                        });
-                        dataIzlijeceniZa.push({
-                            x: new Date(data[d].Datum.substring(0, 10)),
-                            y: data[d+1].PodaciDetaljno[z].broj_aktivni - preminuliDanas + potvrdeniDanas - data[d].PodaciDetaljno[z].broj_aktivni
-                        });
+                        dataPotvrdeniZa.push({x: datumDanas, y: potvrdeniDanas});
+                        dataPreminuliZa.push({x: datumDanas, y: preminuliDanas});
+                        dataAktivniZa.push({x: datumDanas, y: aktivniDanas});
                         break;
                     default:
                         break;
@@ -581,7 +398,14 @@ window.onload = function() {
         }
         chartZupanijePotvrdeni.render();
         chartZupanijePreminuli.render();
-        chartZupanijeIzlijeceni.render();
+        chartZupanijeAktivni.render();
+        
+        // Primorsko-goranska
+        document.getElementById("danasPotvrdeniPGZ").innerHTML = CanvasJS.formatNumber(data[0].PodaciDetaljno[12].broj_zarazenih - data[1].PodaciDetaljno[12].broj_zarazenih, "", "hr");
+        document.getElementById("danasAktivniPGZ").innerHTML = CanvasJS.formatNumber(data[0].PodaciDetaljno[12].broj_aktivni, "", "hr");
+        document.getElementById("danasPreminuliPGZ").innerHTML = CanvasJS.formatNumber(data[0].PodaciDetaljno[12].broj_umrlih - data[1].PodaciDetaljno[12].broj_umrlih, "", "hr");
+        document.getElementById("sveukupnoPotvrdeniPGZ").innerHTML = CanvasJS.formatNumber(data[0].PodaciDetaljno[12].broj_zarazenih, "", "hr");
+        document.getElementById("sveukupnoPreminuliPGZ").innerHTML = CanvasJS.formatNumber(data[0].PodaciDetaljno[12].broj_umrlih, "", "hr");
     }
 
     $.getJSON('https://cors-anywhere.herokuapp.com/https://www.koronavirus.hr/json/?action=podaci', addDataHrvatska);
@@ -699,9 +523,6 @@ window.onload = function() {
                 margin: 20,
                 valueFormatString: "D. MMM",
                 labelAngle: -30
-            },
-            axisY: {
-                minimum: 0
             },
             legend: {
                 fontSize: 13,
@@ -928,7 +749,7 @@ window.onload = function() {
         }
     });
 
-    var chartZupanijeIzlijeceni = new CanvasJS.StockChart("chartContainerZupanijeIzlijeceni", {
+    var chartZupanijeAktivni = new CanvasJS.StockChart("chartContainerZupanijeAktivni", {
         height: 450,
         culture: "hr",
         theme: "dark2",
@@ -939,15 +760,12 @@ window.onload = function() {
             title: {
                 padding: 20,
                 fontSize: 28,
-                text: "Broj izliječenih"
+                text: "Broj aktivnih"
             },
             axisX: {
                 margin: 20,
                 valueFormatString: "D. MMM",
                 labelAngle: -30
-            },
-            axisY: {
-                minimum: 0
             },
             legend: {
                 fontSize: 13,
@@ -971,7 +789,7 @@ window.onload = function() {
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
                 xValueFormatString: "D. MMMM YYYY.",
-                dataPoints: dataIzlijeceniBb
+                dataPoints: dataAktivniBb
             },
             {
                 name: imeZupanije[1],
@@ -979,7 +797,7 @@ window.onload = function() {
                 color: colorZupanije[1],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniBp
+                dataPoints: dataAktivniBp
             },
             {
                 name: imeZupanije[2],
@@ -987,7 +805,7 @@ window.onload = function() {
                 color: colorZupanije[2],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniDn
+                dataPoints: dataAktivniDn
             },
             {
                 name: imeZupanije[3],
@@ -995,7 +813,7 @@ window.onload = function() {
                 color: colorZupanije[3],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniGZ
+                dataPoints: dataAktivniGZ
             },
             {
                 name: imeZupanije[4],
@@ -1003,7 +821,7 @@ window.onload = function() {
                 color: colorZupanije[4],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniI
+                dataPoints: dataAktivniI
             },
             {
                 name: imeZupanije[5],
@@ -1011,7 +829,7 @@ window.onload = function() {
                 color: colorZupanije[5],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniK
+                dataPoints: dataAktivniK
             },
             {
                 name: imeZupanije[6],
@@ -1019,7 +837,7 @@ window.onload = function() {
                 color: colorZupanije[6],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniKk
+                dataPoints: dataAktivniKk
             },
             {
                 name: imeZupanije[7],
@@ -1027,7 +845,7 @@ window.onload = function() {
                 color: colorZupanije[7],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniKz
+                dataPoints: dataAktivniKz
             },
             {
                 name: imeZupanije[8],
@@ -1035,7 +853,7 @@ window.onload = function() {
                 color: colorZupanije[8],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniLs
+                dataPoints: dataAktivniLs
             },
             {
                 name: imeZupanije[9],
@@ -1043,7 +861,7 @@ window.onload = function() {
                 color: colorZupanije[9],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniM
+                dataPoints: dataAktivniM
             },
             {
                 name: imeZupanije[10],
@@ -1051,7 +869,7 @@ window.onload = function() {
                 color: colorZupanije[10],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniOb
+                dataPoints: dataAktivniOb
             },
             {
                 name: imeZupanije[11],
@@ -1059,7 +877,7 @@ window.onload = function() {
                 color: colorZupanije[11],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniPs
+                dataPoints: dataAktivniPs
             },
             {
                 name: imeZupanije[12],
@@ -1067,7 +885,7 @@ window.onload = function() {
                 color: colorZupanije[12],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniPg
+                dataPoints: dataAktivniPg
             },
             {
                 name: imeZupanije[13],
@@ -1075,7 +893,7 @@ window.onload = function() {
                 color: colorZupanije[13],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniSk
+                dataPoints: dataAktivniSk
             },
             {
                 name: imeZupanije[14],
@@ -1083,7 +901,7 @@ window.onload = function() {
                 color: colorZupanije[14],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniSm
+                dataPoints: dataAktivniSm
             },
             {
                 name: imeZupanije[15],
@@ -1091,7 +909,7 @@ window.onload = function() {
                 color: colorZupanije[15],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniSd
+                dataPoints: dataAktivniSd
             },
             {
                 name: imeZupanije[16],
@@ -1099,7 +917,7 @@ window.onload = function() {
                 color: colorZupanije[16],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniV
+                dataPoints: dataAktivniV
             },
             {
                 name: imeZupanije[17],
@@ -1107,7 +925,7 @@ window.onload = function() {
                 color: colorZupanije[17],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniVp
+                dataPoints: dataAktivniVp
             },
             {
                 name: imeZupanije[18],
@@ -1115,7 +933,7 @@ window.onload = function() {
                 color: colorZupanije[18],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniVs
+                dataPoints: dataAktivniVs
             },
             {
                 name: imeZupanije[19],
@@ -1123,7 +941,7 @@ window.onload = function() {
                 color: colorZupanije[19],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniZ
+                dataPoints: dataAktivniZ
             },
             {
                 name: imeZupanije[20],
@@ -1131,7 +949,7 @@ window.onload = function() {
                 color: colorZupanije[20],
                 fillOpacity: chartFillOpacity,
                 showInLegend: true,
-                dataPoints: dataIzlijeceniZa
+                dataPoints: dataAktivniZa
             }]
         }],
         rangeSelector: {
@@ -1191,9 +1009,6 @@ window.onload = function() {
                 margin: 20,
                 valueFormatString: "D. MMM",
                 labelAngle: -30
-            },
-            axisY: {
-                minimum: 0
             },
             legend: {
                 fontSize: 13,
