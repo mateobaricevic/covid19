@@ -1,0 +1,8 @@
+@media screen and (max-width: 920px) {
+  .chartHeight {
+    height: 900px !important;
+  }
+  .chartHeightWrap {
+    height: 940px !important;
+  }
+}
