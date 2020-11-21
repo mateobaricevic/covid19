@@ -1322,8 +1322,3 @@ window.onresize = function() {
     isBigScreen = window.innerWidth > 920;
     changed = false;
 };
-
-function reloadCharts() {
-    chartZupanijePreminuli.render();
-    chartZupanijeAktivni.render();
-}
