@@ -1274,7 +1274,7 @@ window.onresize = function() {
             chartHrvatska.render();
             
             chartZupanijePotvrdeni.options.height = 500;
-            chartZupanijePotvrdeni.options.charts[0].title.fontSize = 28;
+            chartZupanijePotvrdeni.options.title.fontSize = 28;
             chartZupanijePotvrdeni.options.charts[0].legend.horizontalAlign = "right";
             chartZupanijePotvrdeni.options.charts[0].legend.verticalAlign = "center";
             chartZupanijePotvrdeni.options.charts[0].legend.fontSize = 14;
@@ -1282,7 +1282,7 @@ window.onresize = function() {
             chartZupanijePotvrdeni.render();
             
             chartZupanijeAktivni.options.height = 500;
-            chartZupanijeAktivni.options.charts[0].title.fontSize = 28;
+            chartZupanijeAktivni.options.title.fontSize = 28;
             chartZupanijeAktivni.options.charts[0].legend.horizontalAlign = "right";
             chartZupanijeAktivni.options.charts[0].legend.verticalAlign = "center";
             chartZupanijeAktivni.options.charts[0].legend.fontSize = 14;
@@ -1290,7 +1290,7 @@ window.onresize = function() {
             chartZupanijeAktivni.render();
             
             chartZupanijePreminuli.options.height = 500;
-            chartZupanijePreminuli.options.charts[0].title.fontSize = 28;
+            chartZupanijePreminuli.options.title.fontSize = 28;
             chartZupanijePreminuli.options.charts[0].legend.horizontalAlign = "right";
             chartZupanijePreminuli.options.charts[0].legend.verticalAlign = "center";
             chartZupanijePreminuli.options.charts[0].legend.fontSize = 14;
@@ -1303,7 +1303,7 @@ window.onresize = function() {
             chartHrvatska.render();
             
             chartZupanijePotvrdeni.options.height = 900;
-            chartZupanijePotvrdeni.options.charts[0].title.fontSize = 20;
+            chartZupanijePotvrdeni.options.title.fontSize = 20;
             chartZupanijePotvrdeni.options.charts[0].legend.horizontalAlign = "center";
             chartZupanijePotvrdeni.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijePotvrdeni.options.charts[0].legend.fontSize = 15;
@@ -1311,7 +1311,7 @@ window.onresize = function() {
             chartZupanijePotvrdeni.render();
             
             chartZupanijeAktivni.options.height = 900;
-            chartZupanijeAktivni.options.charts[0].title.fontSize = 20;
+            chartZupanijeAktivni.options.title.fontSize = 20;
             chartZupanijeAktivni.options.charts[0].legend.horizontalAlign = "center";
             chartZupanijeAktivni.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijeAktivni.options.charts[0].legend.fontSize = 15;
@@ -1319,7 +1319,7 @@ window.onresize = function() {
             chartZupanijeAktivni.render();
             
             chartZupanijePreminuli.options.height = 900;
-            chartZupanijePreminuli.options.charts[0].title.fontSize = 20;
+            chartZupanijePreminuli.options.title.fontSize = 20;
             chartZupanijePreminuli.options.charts[0].legend.horizontalAlign = "center";
             chartZupanijePreminuli.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijePreminuli.options.charts[0].legend.fontSize = 15;
