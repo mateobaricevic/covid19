@@ -1,8 +1,14 @@
 @media screen and (max-width: 920px) {
-  .chartHeight {
-    height: 900px !important;
-  }
-  .chartHeightWrap {
-    height: 940px !important;
-  }
+    .chartHeight {
+        height: 900px !important;
+    }
+    .chartHeightWrap {
+        height: 940px !important;
+    }
+    .chartHeightHrvatska {
+        height: 800px !important;
+    }
+    .chartHeightHrvatskaWrap {
+        height: 840px !important;
+    }
 }
