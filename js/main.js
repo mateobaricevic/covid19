@@ -3,6 +3,7 @@ var legendVerticalAlign = "center";
 var chartHeight = 500;
 var initialInputFields = true;
 var legendMaxWidthHrvatska = 1000;
+var initialFontSize = 28;
 
 var isBigScreen = window.innerWidth > 920;
 if (!isBigScreen) {
@@ -11,6 +12,7 @@ if (!isBigScreen) {
     chartHeight = 900;
     initialInputFields = false;
     legendMaxWidthHrvatska = 100;
+    initialFontSize = 20;
 }
 
 CanvasJS.addCultureInfo("hr", {
@@ -529,7 +531,7 @@ var chartZupanijePotvrdeni = new CanvasJS.StockChart("chartContainerZupanijePotv
         zoomEnabled: true,
         title: {
             padding: 30,
-            fontSize: 28,
+            fontSize: initialFontSize,
             text: "Broj novozaraženih"
         },
         axisX: {
@@ -774,7 +776,7 @@ var chartZupanijeAktivni = new CanvasJS.StockChart("chartContainerZupanijeAktivn
         zoomEnabled: true,
         title: {
             padding: 30,
-            fontSize: 28,
+            fontSize: initialFontSize,
             text: "Broj aktivnih"
         },
         axisX: {
@@ -1019,7 +1021,7 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
         zoomEnabled: true,
         title: {
             padding: 30,
-            fontSize: 28,
+            fontSize: initialFontSize,
             text: "Broj preminulih"
         },
         axisX: {
@@ -1272,6 +1274,7 @@ window.onresize = function() {
             chartHrvatska.render();
             
             chartZupanijePotvrdeni.options.height = 500;
+            chartZupanijePotvrdeni.options.charts[0].title.fontSize = 28;
             chartZupanijePotvrdeni.options.charts[0].legend.horizontalAlign = "right";
             chartZupanijePotvrdeni.options.charts[0].legend.verticalAlign = "center";
             chartZupanijePotvrdeni.options.charts[0].legend.fontSize = 14;
@@ -1279,6 +1282,7 @@ window.onresize = function() {
             chartZupanijePotvrdeni.render();
             
             chartZupanijeAktivni.options.height = 500;
+            chartZupanijeAktivni.options.charts[0].title.fontSize = 28;
             chartZupanijeAktivni.options.charts[0].legend.horizontalAlign = "right";
             chartZupanijeAktivni.options.charts[0].legend.verticalAlign = "center";
             chartZupanijeAktivni.options.charts[0].legend.fontSize = 14;
@@ -1286,6 +1290,7 @@ window.onresize = function() {
             chartZupanijeAktivni.render();
             
             chartZupanijePreminuli.options.height = 500;
+            chartZupanijePreminuli.options.charts[0].title.fontSize = 28;
             chartZupanijePreminuli.options.charts[0].legend.horizontalAlign = "right";
             chartZupanijePreminuli.options.charts[0].legend.verticalAlign = "center";
             chartZupanijePreminuli.options.charts[0].legend.fontSize = 14;
@@ -1298,6 +1303,7 @@ window.onresize = function() {
             chartHrvatska.render();
             
             chartZupanijePotvrdeni.options.height = 900;
+            chartZupanijePotvrdeni.options.charts[0].title.fontSize = 20;
             chartZupanijePotvrdeni.options.charts[0].legend.horizontalAlign = "center";
             chartZupanijePotvrdeni.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijePotvrdeni.options.charts[0].legend.fontSize = 15;
@@ -1305,6 +1311,7 @@ window.onresize = function() {
             chartZupanijePotvrdeni.render();
             
             chartZupanijeAktivni.options.height = 900;
+            chartZupanijeAktivni.options.charts[0].title.fontSize = 20;
             chartZupanijeAktivni.options.charts[0].legend.horizontalAlign = "center";
             chartZupanijeAktivni.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijeAktivni.options.charts[0].legend.fontSize = 15;
@@ -1312,6 +1319,7 @@ window.onresize = function() {
             chartZupanijeAktivni.render();
             
             chartZupanijePreminuli.options.height = 900;
+            chartZupanijePreminuli.options.charts[0].title.fontSize = 20;
             chartZupanijePreminuli.options.charts[0].legend.horizontalAlign = "center";
             chartZupanijePreminuli.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijePreminuli.options.charts[0].legend.fontSize = 15;
