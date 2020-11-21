@@ -3,6 +3,8 @@ var legendVerticalAlign = "center";
 var chartHeight = 500;
 var initialInputFields = true;
 var legendMaxWidthHrvatska = 1000;
+var initialZoom = true;
+var chartHeightHrvatska = 600;
 
 var isBigScreen = window.innerWidth > 920;
 if (!isBigScreen) {
@@ -11,6 +13,8 @@ if (!isBigScreen) {
     chartHeight = 900;
     initialInputFields = false;
     legendMaxWidthHrvatska = 100;
+    initialZoom = false;
+    chartHeightHrvatska = 800;
 }
 
 CanvasJS.addCultureInfo("hr", {
@@ -126,6 +130,7 @@ var colorZupanije = [
     colors.cyan
 ];
 
+var dataAktivni = [];
 var dataPotvrdeni = [];
 var dataIzlijeceni = [];
 var dataPreminuli = [];
@@ -248,6 +253,10 @@ function toolTipFormat(e) {
 
 function addDataHrvatska(data) {
     for (var i = 0; i < data.length-1; i++) {
+        dataAktivni.push({
+            x: new Date(data[i].Datum.substring(0, 10)),
+            y: data[i].SlucajeviHrvatska - data[i].IzlijeceniHrvatska - data[i].UmrliHrvatska
+        });
         dataPotvrdeni.push({
             x: new Date(data[i].Datum.substring(0, 10)),
             y: data[i].SlucajeviHrvatska - data[i+1].SlucajeviHrvatska
@@ -263,9 +272,8 @@ function addDataHrvatska(data) {
     }
     chartHrvatska.render();
 
-    document.getElementById("danasDatum").innerHTML = CanvasJS.formatDate(new Date(data[0].Datum.substring(0, 10)), "DD. MMMM YYYY.", "hr");
-
     // Hrvatska
+    document.getElementById("danasAktivniHrvatska").innerHTML = CanvasJS.formatNumber(data[0].SlucajeviHrvatska - data[0].IzlijeceniHrvatska - data[0].UmrliHrvatska, "", "hr");
     document.getElementById("danasPotvrdeniHrvatska").innerHTML = CanvasJS.formatNumber(data[0].SlucajeviHrvatska - data[1].SlucajeviHrvatska, "", "hr");
     document.getElementById("danasIzlijeceniHrvatska").innerHTML = CanvasJS.formatNumber(data[0].IzlijeceniHrvatska - data[1].IzlijeceniHrvatska, "", "hr");
     document.getElementById("danasPreminuliHrvatska").innerHTML = CanvasJS.formatNumber(data[0].UmrliHrvatska - data[1].UmrliHrvatska, "", "hr");
@@ -274,12 +282,15 @@ function addDataHrvatska(data) {
     document.getElementById("sveukupnoPreminuliHrvatska").innerHTML = CanvasJS.formatNumber(data[0].UmrliHrvatska, "", "hr");
 
     // Svijet
+    document.getElementById("danasAktivniSvijet").innerHTML = CanvasJS.formatNumber(data[0].SlucajeviSvijet - data[0].IzlijeceniSvijet - data[0].UmrliSvijet, "", "hr");
     document.getElementById("danasPotvrdeniSvijet").innerHTML = CanvasJS.formatNumber(data[0].SlucajeviSvijet - data[1].SlucajeviSvijet, "", "hr");
     document.getElementById("danasIzlijeceniSvijet").innerHTML = CanvasJS.formatNumber(data[0].IzlijeceniSvijet - data[1].IzlijeceniSvijet, "", "hr");
     document.getElementById("danasPreminuliSvijet").innerHTML = CanvasJS.formatNumber(data[0].UmrliSvijet - data[1].UmrliSvijet, "", "hr");
     document.getElementById("sveukupnoPotvrdeniSvijet").innerHTML = CanvasJS.formatNumber(data[0].SlucajeviSvijet, "", "hr");
     document.getElementById("sveukupnoIzlijeceniSvijet").innerHTML = CanvasJS.formatNumber(data[0].IzlijeceniSvijet, "", "hr");
     document.getElementById("sveukupnoPreminuliSvijet").innerHTML = CanvasJS.formatNumber(data[0].UmrliSvijet, "", "hr");
+    
+    document.getElementById("danasDatum").innerHTML = CanvasJS.formatDate(new Date(data[0].Datum.substring(0, 10)), "DD. MMMM YYYY.", "hr");
 }
 
 function addDataZupanije(data) {
@@ -423,13 +434,13 @@ function addDataZupanije(data) {
 }
 
 var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
-    height: 500,
+    height: chartHeightHrvatska,
     culture: "hr",
     theme: "dark2",
     animationEnabled: true,
     animationDuration: 950,
     charts: [{
-        zoomEnabled: true,
+        zoomEnabled: initialZoom,
         title: {
             padding: 20,
             fontSize: 28,
@@ -441,7 +452,10 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
             labelAngle: -30
         },
         legend: {
+            fontSize: 14,
             cursor: "pointer",
+            horizontalAlign: legendHorizontalAlign,
+            verticalAlign: legendVerticalAlign,
             maxWidth: legendMaxWidthHrvatska,
             itemclick: toggleDataSeries
         },
@@ -458,7 +472,6 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
             color: colors.orange,
             fillOpacity: 0.8,
             showInLegend: true,
-            xValueFormatString: "D. MMMM YYYY.",
             dataPoints: dataPotvrdeni
         },
         {
@@ -477,9 +490,43 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
             showInLegend: true,
             dataPoints: dataPreminuli
         }]
+    },
+    {
+        axisX: {
+            margin: 20,
+            valueFormatString: "D. MMM",
+            labelAngle: -30
+        },
+        legend: {
+            fontSize: 14,
+            cursor: "pointer",
+            horizontalAlign: legendHorizontalAlign,
+            verticalAlign: legendVerticalAlign,
+            maxWidth: legendMaxWidthHrvatska,
+            itemclick: toggleDataSeries
+        },
+        toolTip: {
+            shared: true,
+            borderColor: "black",
+            backgroundColor: "rgba(20, 25, 28, 0.7)",
+            cornerRadius: 5,
+            contentFormatter: toolTipFormat
+        },
+        data: [{
+            name: "Aktivni",
+            type: "area",
+            color: colors.cyan,
+            fillOpacity: 0.5,
+            showInLegend: true,
+            xValueFormatString: "D. MMMM YYYY.",
+            dataPoints: dataAktivni
+        }]
     }],
     rangeSelector: {
         selectedRangeButtonIndex: 1,
+        buttonStyle: {
+            labelFontSize: 16
+        },
         buttons: [{
             range: 1,
             rangeType: "month",
@@ -511,6 +558,9 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
         }],
         inputFields: {
             enabled: initialInputFields,
+            style: {
+                fontSize: 16
+            },
             valueFormatString: "DD. MMM YYYY."
         }
     },
@@ -526,7 +576,7 @@ var chartZupanijePotvrdeni = new CanvasJS.StockChart("chartContainerZupanijePotv
     animationEnabled: true,
     animationDuration: 950,
     charts: [{
-        zoomEnabled: true,
+        zoomEnabled: initialZoom,
         title: {
             padding: 30,
             fontSize: 28,
@@ -725,6 +775,9 @@ var chartZupanijePotvrdeni = new CanvasJS.StockChart("chartContainerZupanijePotv
     }],
     rangeSelector: {
         selectedRangeButtonIndex: 1,
+        buttonStyle: {
+            labelFontSize: 16
+        },
         buttons: [{
             range: 1,
             rangeType: "month",
@@ -756,6 +809,9 @@ var chartZupanijePotvrdeni = new CanvasJS.StockChart("chartContainerZupanijePotv
         }],
         inputFields: {
             enabled: initialInputFields,
+            style: {
+                fontSize: 16
+            },
             valueFormatString: "DD. MMM YYYY."
         }
     },
@@ -771,7 +827,7 @@ var chartZupanijeAktivni = new CanvasJS.StockChart("chartContainerZupanijeAktivn
     animationEnabled: true,
     animationDuration: 950,
     charts: [{
-        zoomEnabled: true,
+        zoomEnabled: initialZoom,
         title: {
             padding: 30,
             fontSize: 28,
@@ -970,6 +1026,9 @@ var chartZupanijeAktivni = new CanvasJS.StockChart("chartContainerZupanijeAktivn
     }],
     rangeSelector: {
         selectedRangeButtonIndex: 1,
+        buttonStyle: {
+            labelFontSize: 16
+        },
         buttons: [{
             range: 1,
             rangeType: "month",
@@ -1001,6 +1060,9 @@ var chartZupanijeAktivni = new CanvasJS.StockChart("chartContainerZupanijeAktivn
         }],
         inputFields: {
             enabled: initialInputFields,
+            style: {
+                fontSize: 16
+            },
             valueFormatString: "DD. MMM YYYY."
         }
     },
@@ -1016,7 +1078,7 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
     animationEnabled: true,
     animationDuration: 950,
     charts: [{
-        zoomEnabled: true,
+        zoomEnabled: initialZoom,
         title: {
             padding: 30,
             fontSize: 28,
@@ -1215,6 +1277,9 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
     }],
     rangeSelector: {
         selectedRangeButtonIndex: 1,
+        buttonStyle: {
+            labelFontSize: 16
+        },
         buttons: [{
             range: 1,
             rangeType: "month",
@@ -1246,6 +1311,9 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
         }],
         inputFields: {
             enabled: initialInputFields,
+            style: {
+                fontSize: 16
+            },
             valueFormatString: "DD. MMM YYYY."
         }
     },
@@ -1267,8 +1335,14 @@ window.onresize = function() {
     }
     if (changed) {
         if (isCurrentBigScreen) {
+            chartHrvatska.options.height = 600;
+            chartHrvatska.options.charts[0].legend.horizontalAlign = "right";
+            chartHrvatska.options.charts[0].legend.verticalAlign = "center";
+            chartHrvatska.options.charts[1].legend.horizontalAlign = "right";
+            chartHrvatska.options.charts[1].legend.verticalAlign = "center";
             chartHrvatska.options.charts[0].legend.maxWidth = 1000;
             chartHrvatska.options.rangeSelector.inputFields.enabled = true;
+            chartHrvatska.options.charts[0].zoomEnabled = true;
             chartHrvatska.render();
             
             chartZupanijePotvrdeni.options.height = 500;
@@ -1276,6 +1350,7 @@ window.onresize = function() {
             chartZupanijePotvrdeni.options.charts[0].legend.verticalAlign = "center";
             chartZupanijePotvrdeni.options.charts[0].legend.fontSize = 14;
             chartZupanijePotvrdeni.options.rangeSelector.inputFields.enabled = true;
+            chartZupanijePotvrdeni.options.charts[0].zoomEnabled = true;
             chartZupanijePotvrdeni.render();
             
             chartZupanijeAktivni.options.height = 500;
@@ -1283,6 +1358,7 @@ window.onresize = function() {
             chartZupanijeAktivni.options.charts[0].legend.verticalAlign = "center";
             chartZupanijeAktivni.options.charts[0].legend.fontSize = 14;
             chartZupanijeAktivni.options.rangeSelector.inputFields.enabled = true;
+            chartZupanijeAktivni.options.charts[0].zoomEnabled = true;
             chartZupanijeAktivni.render();
             
             chartZupanijePreminuli.options.height = 500;
@@ -1290,11 +1366,18 @@ window.onresize = function() {
             chartZupanijePreminuli.options.charts[0].legend.verticalAlign = "center";
             chartZupanijePreminuli.options.charts[0].legend.fontSize = 14;
             chartZupanijePreminuli.options.rangeSelector.inputFields.enabled = true;
+            chartZupanijePreminuli.options.charts[0].zoomEnabled = true;
             chartZupanijePreminuli.render();
         } else {
+            chartHrvatska.options.height = 800;
+            chartHrvatska.options.charts[0].legend.horizontalAlign = "center";
+            chartHrvatska.options.charts[0].legend.verticalAlign = "bottom";
+            chartHrvatska.options.charts[1].legend.horizontalAlign = "center";
+            chartHrvatska.options.charts[1].legend.verticalAlign = "bottom";
             chartHrvatska.options.charts[0].legend.maxWidth = 100;
             chartHrvatska.options.rangeSelector.selectedRangeButtonIndex = 0;
             chartHrvatska.options.rangeSelector.inputFields.enabled = false;
+            chartHrvatska.options.charts[0].zoomEnabled = false;
             chartHrvatska.render();
             
             chartZupanijePotvrdeni.options.height = 900;
@@ -1302,6 +1385,7 @@ window.onresize = function() {
             chartZupanijePotvrdeni.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijePotvrdeni.options.charts[0].legend.fontSize = 15;
             chartZupanijePotvrdeni.options.rangeSelector.inputFields.enabled = false;
+            chartZupanijePotvrdeni.options.charts[0].zoomEnabled = false;
             chartZupanijePotvrdeni.render();
             
             chartZupanijeAktivni.options.height = 900;
@@ -1309,6 +1393,7 @@ window.onresize = function() {
             chartZupanijeAktivni.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijeAktivni.options.charts[0].legend.fontSize = 15;
             chartZupanijeAktivni.options.rangeSelector.inputFields.enabled = false;
+            chartZupanijeAktivni.options.charts[0].zoomEnabled = false;
             chartZupanijeAktivni.render();
             
             chartZupanijePreminuli.options.height = 900;
@@ -1316,6 +1401,7 @@ window.onresize = function() {
             chartZupanijePreminuli.options.charts[0].legend.verticalAlign = "bottom";
             chartZupanijePreminuli.options.charts[0].legend.fontSize = 15;
             chartZupanijePreminuli.options.rangeSelector.inputFields.enabled = false;
+            chartZupanijePreminuli.options.charts[0].zoomEnabled = false;
             chartZupanijePreminuli.render();
         }
     }
