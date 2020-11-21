@@ -10,7 +10,7 @@ if (!isBigScreen) {
     legendVerticalAlign = "bottom";
     chartHeight = 900;
     initialInputFields = false;
-    legendMaxWidthHrvatska = 150;
+    legendMaxWidthHrvatska = 120;
 }
 
 CanvasJS.addCultureInfo("hr", {
@@ -1292,7 +1292,7 @@ window.onresize = function() {
             chartZupanijePreminuli.options.rangeSelector.inputFields.enabled = true;
             chartZupanijePreminuli.render();
         } else {
-            chartHrvatska.options.charts[0].legend.maxWidth = 150;
+            chartHrvatska.options.charts[0].legend.maxWidth = 120;
             chartHrvatska.options.rangeSelector.selectedRangeButtonIndex = 0;
             chartHrvatska.options.rangeSelector.inputFields.enabled = false;
             chartHrvatska.render();
