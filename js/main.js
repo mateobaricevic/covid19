@@ -449,7 +449,11 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
         axisX: {
             margin: 20,
             valueFormatString: "D. MMM",
+            labelFontSize: 14,
             labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
         },
         legend: {
             fontSize: 14,
@@ -495,7 +499,11 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
         axisX: {
             margin: 20,
             valueFormatString: "D. MMM",
+            labelFontSize: 14,
             labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
         },
         legend: {
             fontSize: 14,
@@ -585,7 +593,11 @@ var chartZupanijePotvrdeni = new CanvasJS.StockChart("chartContainerZupanijePotv
         axisX: {
             margin: 20,
             valueFormatString: "D. MMM",
+            labelFontSize: 14,
             labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
         },
         legend: {
             fontSize: 14,
@@ -836,7 +848,11 @@ var chartZupanijeAktivni = new CanvasJS.StockChart("chartContainerZupanijeAktivn
         axisX: {
             margin: 20,
             valueFormatString: "D. MMM",
+            labelFontSize: 14,
             labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
         },
         legend: {
             fontSize: 14,
@@ -1087,7 +1103,11 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
         axisX: {
             margin: 20,
             valueFormatString: "D. MMM",
+            labelFontSize: 14,
             labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
         },
         legend: {
             fontSize: 14,
