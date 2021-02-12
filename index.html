@@ -8,51 +8,60 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body style="padding: 0; margin: 0;">
-        <div style="width: 100%;"><p style="margin: 0; padding: 15px; background: slategray; font-family: Roboto; font-size: 26px; color: white; text-align: center; box-shadow: 0px 0px 15px #777;"><img src="favicon.png" alt="COVID-19" style="height: 20px;"> COVID-19 Hrvatska</p></div>
-        <div style="height: 20px;"></div>
-        <div><p id="danasDatum" style="margin: auto; padding: 10px 0px; width: 80%; background: #515C65; font-family: Roboto; font-size: 20px; color: white; text-align: center; box-shadow: 0px 0px 15px #777;">Loading...</p></div>
-        <div style="height: 20px;"></div>
-        <div style="text-align: center;">
-        <div style="width: 80%; display: inline-flex; flex-wrap: wrap; gap: 20px;">
-            <div id="brojeviDanasHrvatska" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; font-size: 16px; color: white; text-align: center;">
-                <p style="margin: 0; padding: 8px; font-size: 20px;">Hrvatska</p>
-                <p style="margin: 0; padding: 4px; color: #00E5FF;">Aktivni: <span id="danasAktivniHrvatska" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FFAB40;">Potvrđeni: <span id="danasPotvrdeniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniHrvatska" style="color: white;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #69F0AE;">Izliječeni: <span id="danasIzlijeceniHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniHrvatska" style="color: white;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FF5252;">Preminuli: <span id="danasPreminuliHrvatska" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliHrvatska" style="color: white;"></span></p>
+    <body>
+        <div style="width: 100%;"><p class="favicon"><img src="favicon.png" alt="COVID-19" style="height: 20px;"> COVID-19 Hrvatska</p></div>
+        <div class="paddingtop20">
+            <p id="danasDatum">Loading...</p>
+        </div>
+        <div class="paddingtop20" style="text-align: center;">
+            <div class="flex-wrapper">
+                <div id="brojeviDanasHrvatska" class="flex-item">
+                    <p class="p1">Hrvatska</p>
+                    <p class="active">Aktivni:<br><span id="danasAktivniHrvatska" class="today"></span></p>
+                    <p class="confirmed">Potvrđeni:<br><span id="danasPotvrdeniHrvatska" class="today"></span> / <span id="sveukupnoPotvrdeniHrvatska" class="overall"></span></p>
+                    <p class="cured">Izliječeni:<br><span id="danasIzlijeceniHrvatska" class="today"></span> / <span id="sveukupnoIzlijeceniHrvatska" class="overall"></span></p>
+                    <p class="deceased">Preminuli:<br><span id="danasPreminuliHrvatska" class="today"></span> / <span id="sveukupnoPreminuliHrvatska" class="overall"></span></p>
+                </div>
+                <div id="brojeviDanasPGZ" class="flex-item">
+                    <p class="p1">Primorsko-goranska</p>
+                    <p class="active">Aktivni:<br><span id="danasAktivniPGZ" class="today"></span></p>
+                    <p class="confirmed">Potvrđeni:<br><span id="danasPotvrdeniPGZ" class="today"></span> / <span id="sveukupnoPotvrdeniPGZ" class="overall"></span></p>
+                    <p class="deceased">Preminuli:<br><span id="danasPreminuliPGZ" class="today"></span> / <span id="sveukupnoPreminuliPGZ" class="overall"></span></p>
+                </div>
+                <div id="brojeviDanasSvijet" class="flex-item">
+                    <p class="p1">Svijet</p>
+                    <p class="active">Aktivni:<br><span id="danasAktivniSvijet" class="today"></span></p>
+                    <p class="confirmed">Potvrđeni:<br><span id="danasPotvrdeniSvijet" class="today"></span> / <span id="sveukupnoPotvrdeniSvijet" class="overall"></span></p>
+                    <p class="cured">Izliječeni:<br><span id="danasIzlijeceniSvijet" class="today"></span> / <span id="sveukupnoIzlijeceniSvijet" class="overall"></span></p>
+                    <p class="deceased">Preminuli:<br><span id="danasPreminuliSvijet" class="today"></span> / <span id="sveukupnoPreminuliSvijet" class="overall"></span></p>
+                </div>
             </div>
-            <div id="brojeviDanasPGZ" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; font-size: 16px; color: white; text-align: center;">
-                <p style="margin: 0; padding: 8px; font-size: 20px;">Primorsko-goranska</p>
-                <p style="margin: 0; padding: 4px; color: #00E5FF;">Aktivni: <span id="danasAktivniPGZ" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FFAB40;">Potvrđeni: <span id="danasPotvrdeniPGZ" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniPGZ" style="color: white;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FF5252;">Preminuli: <span id="danasPreminuliPGZ" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliPGZ" style="color: white;"></span></p>
+        </div>
+        <div class="paddingtop20">
+            <div class="chartHeightHrvatskaWrap chart-wrapper">
+                <div class="chartHeightHrvatska chart-item"><div id="chartContainerHrvatska" style="margin: auto;"></div></div>
             </div>
-            <div id="brojeviDanasSvijet" style="flex: auto; padding: 10px; background: #515C65; box-shadow: 0px 0px 15px #777; font-family: Roboto; font-size: 16px; color: white; text-align: center;">
-                <p style="margin: 0; padding: 8px; font-size: 20px;">Svijet</p>
-                <p style="margin: 0; padding: 4px; color: #00E5FF;">Aktivni: <span id="danasAktivniSvijet" style="color: white; font-weight: bold;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FFAB40;">Potvrđeni: <span id="danasPotvrdeniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPotvrdeniSvijet" style="color: white;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #69F0AE;">Izliječeni: <span id="danasIzlijeceniSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoIzlijeceniSvijet" style="color: white;"></span></p>
-                <p style="margin: 0; padding: 4px; color: #FF5252;">Preminuli: <span id="danasPreminuliSvijet" style="color: white; font-weight: bold;"></span>/<span id="sveukupnoPreminuliSvijet" style="color: white;"></span></p>
+        </div>
+        <div class="paddingtop20">
+            <div class="chartHeightSvijetWrap chart-wrapper">
+                <div class="chartHeightSvijet chart-item"><div id="chartContainerSvijet" style="margin: auto;"></div></div>
             </div>
-        </div></div>
-        <div style="height: 20px;"></div>
-        <div class="chartHeightHrvatskaWrap" style="height: 640px; width: 80%; margin: auto; background: #32373A; box-shadow: 0px 0px 15px #777;">
-            <div class="chartHeightHrvatska" style="height: 600px; padding: 20px;"><div id="chartContainerHrvatska" style="margin: auto;"></div></div>
         </div>
-        <div style="height: 20px;"></div>
-        <div class="chartHeightWrap" style="height: 540px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
-            <div class="chartHeight" style="height: 500px; padding: 20px;"><div id="chartContainerZupanijePotvrdeni" style="height: 90%; width: 95%; margin: auto;"></div></div>
+        <div class="paddingtop20">
+            <div class="chartHeightWrap chart-wrapper">
+                <div class="chartHeight chart-item"><div id="chartContainerZupanijePotvrdeni" style="height: 90%; width: 95%; margin: auto;"></div></div>
+            </div>
         </div>
-        <div style="height: 20px;"></div>
-        <div class="chartHeightWrap" style="height: 540px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
-            <div class="chartHeight" style="height: 500px; padding: 20px;"><div id="chartContainerZupanijeAktivni" style="height: 90%; width: 95%; margin: auto;"></div></div>
+        <div class="paddingtop20">
+            <div class="chartHeightWrap chart-wrapper">
+                <div class="chartHeight chart-item"><div id="chartContainerZupanijeAktivni" style="height: 90%; width: 95%; margin: auto;"></div></div>
+            </div>
         </div>
-        <div style="height: 20px;"></div>
-        <div class="chartHeightWrap" style="height: 540px; width: 80%; margin: auto; padding: 20px 0 20px 0; background: #32373A; box-shadow: 0px 0px 15px #777;">
-            <div class="chartHeight" style="height: 500px; padding: 20px;"><div id="chartContainerZupanijePreminuli" style="height: 90%; width: 95%; margin: auto;"></div></div>
+        <div class="paddingtop20 paddingbottom20">
+            <div class="chartHeightWrap chart-wrapper">
+                <div class="chartHeight chart-item"><div id="chartContainerZupanijePreminuli" style="height: 90%; width: 95%; margin: auto;"></div></div>
+            </div>
         </div>
-        <div style="height: 20px;"></div>
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
         <script src="js/main.js"></script>
