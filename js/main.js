@@ -3,8 +3,10 @@ var legendVerticalAlign = "center";
 var chartHeight = 500;
 var initialInputFields = true;
 var legendMaxWidthHrvatska = 1000;
+var legendMaxWidthSvijet = 1000;
 var initialZoom = true;
 var chartHeightHrvatska = 600;
+var chartHeightSvijet = 600;
 
 var isBigScreen = window.innerWidth > 920;
 if (!isBigScreen) {
@@ -13,8 +15,10 @@ if (!isBigScreen) {
     chartHeight = 900;
     initialInputFields = false;
     legendMaxWidthHrvatska = 100;
+    legendMaxWidthSvijet = 100;
     initialZoom = false;
     chartHeightHrvatska = 800;
+    chartHeightSvijet = 800;
 }
 
 CanvasJS.addCultureInfo("hr", {
@@ -135,6 +139,11 @@ var dataPotvrdeni = [];
 var dataIzlijeceni = [];
 var dataPreminuli = [];
 
+var dataAktivniSvijet = [];
+var dataPotvrdeniSvijet = [];
+var dataIzlijeceniSvijet = [];
+var dataPreminuliSvijet = [];
+
 // Potvrđeni po županijama
 var dataPotvrdeniBb = []; // Bjelovarsko-bilogorska
 var dataPotvrdeniBp = []; // Brodsko-posavska
@@ -244,14 +253,14 @@ function toolTipFormat(e) {
     var str = CanvasJS.formatDate(new Date(e.entries[0].dataPoint.x), "D. MMMM YYYY.", "hr") + "<br/>";
     for (var i = 0; i < e.entries.length; i++) {
         if (e.entries[i].dataSeries.visible) {
-            var temp = ('<span style="color: ' + e.entries[i].dataSeries.color + ';">' + e.entries[i].dataSeries.name + ':</span> '+ e.entries[i].dataPoint.y);
+            var temp = ('<span style="color: ' + e.entries[i].dataSeries.color + ';">' + e.entries[i].dataSeries.name + ':</span> '+ CanvasJS.formatNumber(e.entries[i].dataPoint.y, "", "hr"));
             str = str.concat(temp, '<br>');
         }
     };
     return (str);
 }
 
-function addDataHrvatska(json) {
+function addDataHrvatskaSvijet(json) {
     var data = JSON.parse(json.contents);
     for (var i = 0; i < data.length-1; i++) {
         dataAktivni.push({
@@ -270,8 +279,46 @@ function addDataHrvatska(json) {
             x: new Date(data[i].Datum.substring(0, 10)),
             y: data[i].UmrliHrvatska - data[i+1].UmrliHrvatska
         });
+        
+        var danasAktivniSvijet = data[i].SlucajeviSvijet - data[i].IzlijeceniSvijet - data[i].UmrliSvijet
+        if (danasAktivniSvijet < 0)
+        {
+            danasAktivniSvijet = 0;
+        }
+        dataAktivniSvijet.push({
+            x: new Date(data[i].Datum.substring(0, 10)),
+            y: danasAktivniSvijet
+        });
+        var danasPotvrdeniSvijet = data[i].SlucajeviSvijet - data[i+1].SlucajeviSvijet
+        if (danasPotvrdeniSvijet < 0)
+        {
+            danasPotvrdeniSvijet = 0;
+        }
+        dataPotvrdeniSvijet.push({
+            x: new Date(data[i].Datum.substring(0, 10)),
+            y: danasPotvrdeniSvijet
+        });
+        var danasIzlijeceniSvijet = data[i].IzlijeceniSvijet - data[i+1].IzlijeceniSvijet
+        if (danasIzlijeceniSvijet < 0)
+        {
+            danasIzlijeceniSvijet = 0;
+        }
+        dataIzlijeceniSvijet.push({
+            x: new Date(data[i].Datum.substring(0, 10)),
+            y: danasIzlijeceniSvijet
+        });
+        var danasPreminuliSvijet = data[i].UmrliSvijet - data[i+1].UmrliSvijet
+        if (danasPreminuliSvijet < 0)
+        {
+            danasPreminuliSvijet = 0;
+        }
+        dataPreminuliSvijet.push({
+            x: new Date(data[i].Datum.substring(0, 10)),
+            y: danasPreminuliSvijet
+        });
     }
     chartHrvatska.render();
+    chartSvijet.render();
 
     // Hrvatska
     document.getElementById("danasAktivniHrvatska").innerHTML = CanvasJS.formatNumber(data[0].SlucajeviHrvatska - data[0].IzlijeceniHrvatska - data[0].UmrliHrvatska, "", "hr");
@@ -530,6 +577,150 @@ var chartHrvatska = new CanvasJS.StockChart("chartContainerHrvatska", {
             showInLegend: true,
             xValueFormatString: "D. MMMM YYYY.",
             dataPoints: dataAktivni
+        }]
+    }],
+    rangeSelector: {
+        selectedRangeButtonIndex: 1,
+        buttonStyle: {
+            labelFontSize: 16
+        },
+        buttons: [{
+            range: 1,
+            rangeType: "month",
+            label: "1m"
+        },
+        {
+            range: 2,
+            rangeType: "month",
+            label: "2m"
+        },
+        {
+            range: 3,
+            rangeType: "month",
+            label: "3m"
+        },
+        {
+            range: 6,
+            rangeType: "month",
+            label: "6m"
+        },
+        {
+            range: 1,
+            rangeType: "year",
+            label: "1g"
+        },
+        {
+            rangeType: "all",
+            label: "Sve"
+        }],
+        inputFields: {
+            enabled: initialInputFields,
+            style: {
+                fontSize: 16
+            },
+            valueFormatString: "DD. MMM YYYY."
+        }
+    },
+    navigator: {
+        enabled: false
+    }
+});
+
+var chartSvijet = new CanvasJS.StockChart("chartContainerSvijet", {
+    height: chartHeightSvijet,
+    culture: "hr",
+    theme: "dark2",
+    animationEnabled: true,
+    animationDuration: 950,
+    charts: [{
+        zoomEnabled: initialZoom,
+        title: {
+            padding: 20,
+            fontSize: 28,
+            text: "Svijet"
+        },
+        axisX: {
+            margin: 20,
+            valueFormatString: "D. MMM",
+            labelFontSize: 14,
+            labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
+        },
+        legend: {
+            fontSize: 14,
+            cursor: "pointer",
+            horizontalAlign: legendHorizontalAlign,
+            verticalAlign: legendVerticalAlign,
+            maxWidth: legendMaxWidthSvijet,
+            itemclick: toggleDataSeries
+        },
+        toolTip: {
+            shared: true,
+            borderColor: "black",
+            backgroundColor: "rgba(20, 25, 28, 0.7)",
+            cornerRadius: 5,
+            contentFormatter: toolTipFormat
+        },
+        data: [{
+            name: "Potvrđeni",
+            type: "column",
+            color: colors.orange,
+            fillOpacity: 0.8,
+            showInLegend: true,
+            dataPoints: dataPotvrdeniSvijet
+        },
+        {
+            name: "Izliječeni",
+            type: "line",
+            color: colors.green,
+            fillOpacity: 0.7,
+            showInLegend: true,
+            dataPoints: dataIzlijeceniSvijet
+        },
+        {
+            name: "Preminuli",
+            type: "line",
+            color: colors.red,
+            fillOpacity: 0.7,
+            showInLegend: true,
+            dataPoints: dataPreminuliSvijet
+        }]
+    },
+    {
+        axisX: {
+            margin: 20,
+            valueFormatString: "D. MMM",
+            labelFontSize: 14,
+            labelAngle: -30
+        },
+        axisY: {
+            labelFontSize: 14
+        },
+        legend: {
+            fontSize: 14,
+            cursor: "pointer",
+            horizontalAlign: legendHorizontalAlign,
+            verticalAlign: legendVerticalAlign,
+            maxWidth: legendMaxWidthSvijet,
+            itemclick: toggleDataSeries
+        },
+        toolTip: {
+            shared: true,
+            borderColor: "black",
+            backgroundColor: "rgba(20, 25, 28, 0.7)",
+            cornerRadius: 5,
+            contentFormatter: toolTipFormat
+        },
+        data: [{
+            name: "Aktivni",
+            type: "area",
+            color: colors.cyan,
+            fillOpacity: 0.5,
+            showInLegend: true,
+            xValueFormatString: "D. MMMM YYYY.",
+            dataPoints: dataAktivniSvijet
         }]
     }],
     rangeSelector: {
@@ -1345,7 +1536,7 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
 });
 
 window.onload = function() {
-    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=podaci') + '&callback=?', addDataHrvatska);
+    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=podaci') + '&callback=?', addDataHrvatskaSvijet);
     $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=po_danima_zupanijama') + '&callback=?', addDataZupanije);
 };
 
@@ -1366,6 +1557,16 @@ window.onresize = function() {
             chartHrvatska.options.rangeSelector.inputFields.enabled = true;
             chartHrvatska.options.charts[0].zoomEnabled = true;
             chartHrvatska.render();
+            
+            chartSvijet.options.height = 600;
+            chartSvijet.options.charts[0].legend.horizontalAlign = "right";
+            chartSvijet.options.charts[0].legend.verticalAlign = "center";
+            chartSvijet.options.charts[1].legend.horizontalAlign = "right";
+            chartSvijet.options.charts[1].legend.verticalAlign = "center";
+            chartSvijet.options.charts[0].legend.maxWidth = 1000;
+            chartSvijet.options.rangeSelector.inputFields.enabled = true;
+            chartSvijet.options.charts[0].zoomEnabled = true;
+            chartSvijet.render();
             
             chartZupanijePotvrdeni.options.height = 500;
             chartZupanijePotvrdeni.options.charts[0].legend.horizontalAlign = "right";
@@ -1401,6 +1602,17 @@ window.onresize = function() {
             chartHrvatska.options.rangeSelector.inputFields.enabled = false;
             chartHrvatska.options.charts[0].zoomEnabled = false;
             chartHrvatska.render();
+            
+            chartSvijet.options.height = 800;
+            chartSvijet.options.charts[0].legend.horizontalAlign = "center";
+            chartSvijet.options.charts[0].legend.verticalAlign = "bottom";
+            chartSvijet.options.charts[1].legend.horizontalAlign = "center";
+            chartSvijet.options.charts[1].legend.verticalAlign = "bottom";
+            chartSvijet.options.charts[0].legend.maxWidth = 100;
+            chartSvijet.options.rangeSelector.selectedRangeButtonIndex = 0;
+            chartSvijet.options.rangeSelector.inputFields.enabled = false;
+            chartSvijet.options.charts[0].zoomEnabled = false;
+            chartSvijet.render();
             
             chartZupanijePotvrdeni.options.height = 900;
             chartZupanijePotvrdeni.options.charts[0].legend.horizontalAlign = "center";
