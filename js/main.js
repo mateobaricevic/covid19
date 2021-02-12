@@ -251,7 +251,8 @@ function toolTipFormat(e) {
     return (str);
 }
 
-function addDataHrvatska(data) {
+function addDataHrvatska(json) {
+    var data = JSON.parse(json.contents);
     for (var i = 0; i < data.length-1; i++) {
         dataAktivni.push({
             x: new Date(data[i].Datum.substring(0, 10)),
@@ -293,7 +294,8 @@ function addDataHrvatska(data) {
     document.getElementById("danasDatum").innerHTML = CanvasJS.formatDate(new Date(data[0].Datum.substring(0, 10)), "DD. MMMM YYYY.", "hr");
 }
 
-function addDataZupanije(data) {
+function addDataZupanije(json) {
+    var data = JSON.parse(json.contents);
     for (var z = 0; z < data[0].PodaciDetaljno.length; z++) {
         for (var d = 0; d < data.length-1; d++)
         {
@@ -1343,8 +1345,8 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
 });
 
 window.onload = function() {
-    $.getJSON('https://cors-anywhere.herokuapp.com/https://www.koronavirus.hr/json/?action=podaci', addDataHrvatska);
-    $.getJSON('https://cors-anywhere.herokuapp.com/https://www.koronavirus.hr/json/?action=po_danima_zupanijama', addDataZupanije);
+    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=podaci') + '&callback=?', addDataHrvatska);
+    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=po_danima_zupanijama') + '&callback=?', addDataZupanije);
 };
 
 var changed = false;
