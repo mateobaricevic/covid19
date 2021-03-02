@@ -8,6 +8,8 @@ var initialZoom = true;
 var chartHeightHrvatska = 600;
 var chartHeightSvijet = 600;
 
+var proxy = 'https://api.codetabs.com/v1/proxy?quest=';
+
 var isBigScreen = window.innerWidth > 920;
 if (!isBigScreen) {
     legendHorizontalAlign = "center";
@@ -1536,8 +1538,8 @@ var chartZupanijePreminuli = new CanvasJS.StockChart("chartContainerZupanijePrem
 });
 
 window.onload = function() {
-    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=podaci') + '&callback=?', addDataHrvatskaSvijet);
-    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.koronavirus.hr/json/?action=po_danima_zupanijama') + '&callback=?', addDataZupanije);
+    $.getJSON(proxy + encodeURIComponent('https://www.koronavirus.hr/json/?action=podaci'), addDataHrvatskaSvijet);
+    $.getJSON(proxy + encodeURIComponent('https://www.koronavirus.hr/json/?action=po_danima_zupanijama'), addDataZupanije);
 };
 
 var changed = false;
