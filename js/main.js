@@ -9,8 +9,8 @@ var chartHeightHrvatska = 600;
 var chartHeightSvijet = 600;
 
 var proxy = "https://api.codetabs.com/v1/proxy?quest=";
-var urlDrzava = proxy + "https://www.koronavirus.hr/json/?action=podaci";
-var urlZupanije = proxy + "https://www.koronavirus.hr/json/?action=po_danima_zupanijama";
+var urlDrzava = "https://api.codetabs.com/v1/proxy/?quest=https://www.koronavirus.hr/json/?action=podaci";
+var urlZupanije = "https://api.codetabs.com/v1/proxy/?quest=https://www.koronavirus.hr/json/?action=po_danima_zupanijama";
 
 var isBigScreen = window.innerWidth > 920;
 if (!isBigScreen) {
