@@ -265,7 +265,7 @@ function toolTipFormat(e) {
 }
 
 function addDataHrvatskaSvijet(json) {
-    var data = JSON.parse(json.contents);
+    var data = json;
     for (var i = 0; i < data.length-1; i++) {
         dataAktivni.push({
             x: new Date(data[i].Datum.substring(0, 10)),
@@ -346,7 +346,7 @@ function addDataHrvatskaSvijet(json) {
 }
 
 function addDataZupanije(json) {
-    var data = JSON.parse(json.contents);
+    var data = json;
     for (var z = 0; z < data[0].PodaciDetaljno.length; z++) {
         for (var d = 0; d < data.length-1; d++)
         {
